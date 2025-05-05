@@ -12,8 +12,7 @@ const CompanySchema = new mongoose.Schema(
     legalName: {
       type: String,
     },
-    taxId: {
-      // CIF/NIF in Spain
+    cif: {
       type: String,
     },
     email: {

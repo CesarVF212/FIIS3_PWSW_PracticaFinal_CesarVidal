@@ -28,8 +28,7 @@ const ClientSchema = new mongoose.Schema(
       country: { type: String },
       postalCode: { type: String },
     },
-    taxId: {
-      // CIF/NIF in Spain
+    dni: {
       type: String,
     },
     notes: {

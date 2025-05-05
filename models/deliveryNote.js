@@ -11,6 +11,7 @@ const LaborEntrySchema = new mongoose.Schema(
       role: { type: String },
     },
     hours: { type: Number, required: true },
+    // Rate es a cuanto se cobra la hora.
     rate: {
       amount: { type: Number },
       currency: { type: String, default: "EUR" },
