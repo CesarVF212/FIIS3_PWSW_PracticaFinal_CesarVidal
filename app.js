@@ -40,7 +40,7 @@ dbConnect();
 // Iniciación del servidor con el puerto especificado en el .env o 3000 por defecto.
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
-  console.log(`(app.js) Servidor corriendo en el puerto ${port}`);
+  console.log(`(app.js) Servidor corriendo en el puerto ${port}.`);
 });
 
 // Exportamos para poder usar en los tests.

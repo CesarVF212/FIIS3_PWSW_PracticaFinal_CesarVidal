@@ -102,3 +102,5 @@ router.get("/archived", authMiddleware, getArchivedClients);
 //     403: Prohibido.
 //     404: Cliente archivado no encontrado.
 router.post("/:id/restore", authMiddleware, validatorGetClient, restoreClient);
+
+module.exports = router;
