@@ -1,5 +1,5 @@
 ### Variables
-@baseUrl = http://localhost:3000
+@baseUrl = http://localhost:3000/api
 @token = 
 
 ### Registro de usuario
@@ -9,7 +9,7 @@ Content-Type: application/json
 {
   "name": "César Vidal Fernández",
   "email": "cesar.vidal@live.u-tad.com",
-  "password": "Contraseña1234."
+  "password": "Contrasena@1234"
 }
 
 ### Validación de email
@@ -27,7 +27,7 @@ Content-Type: application/json
 
 {
   "email": "cesar.vidal@live.u-tad.com",
-  "password": "Contraseña1234."
+  "password": "Contrasena@1234"
 }
 
 ### Perfil del usuario
