@@ -1,9 +1,9 @@
 ### Variables
-@baseUrl = http://localhost:3000/api
+@baseUrl = http://localhost:3000
 @token = 
 
 ### Registro de usuario
-POST {{baseUrl}}/user/register
+POST http://localhost:3000/api/user/register
 Content-Type: application/json
 
 {
