@@ -15,7 +15,7 @@ describe("User Routes", () => {
       const res = await request(app).post("/api/user/register").send({
         name: "César Vidal Fernández",
         email: "cesar.vidal@live.u-tad.com",
-        password: "Contraseña1234.",
+        password: "Contrase@1234.",
       });
 
       // Marcamos la respuesta que se debe esperar.
@@ -34,7 +34,7 @@ describe("User Routes", () => {
       const res = await request(app).post("/api/user/register").send({
         name: "Cesar Vidal Hernandez",
         email: "cesar.vidal@live.u-tad.com",
-        password: "Contraseña1234.",
+        password: "Contrase@1234.",
       });
 
       expect(res.statusCode).toEqual(409);
@@ -82,7 +82,7 @@ describe("User Routes", () => {
 
     it("No se debe de validar con el código incorrecto.", async () => {
       // Create another user for this test
-      const password = await encrypt("Contra1234.");
+      const password = await encrypt("Contra@1234.");
       const newUser = await userModel.create({
         name: "Pedro Perez",
         email: "pedro-perez@example.com",
@@ -96,7 +96,7 @@ describe("User Routes", () => {
         .post("/api/user/login")
         .send({
           email: "anothertest@example.com",
-          password: "Password123.",
+          password: "Password@123.",
         })
         .then((res) => res.body.token);
 
@@ -115,7 +115,7 @@ describe("User Routes", () => {
     it("Se debe de inciciar sesión con los datos adecuados.", async () => {
       const res = await request(app).post("/api/user/login").send({
         email: "cesar.vidal@live.u-tad.com",
-        password: "Contraseña1234.",
+        password: "Contrase@1234.",
       });
 
       expect(res.statusCode).toEqual(200);
@@ -127,7 +127,7 @@ describe("User Routes", () => {
     it("No se debe de poder iniciar sesión con información incorrecta.", async () => {
       const res = await request(app).post("/api/user/login").send({
         email: "cesar.vidal@live.u-tad.com",
-        password: "Contraseñita1234.",
+        password: "Contrase@1234_incorrecto",
       });
 
       expect(res.statusCode).toEqual(401);
@@ -145,7 +145,7 @@ describe("User Routes", () => {
       expect(res.statusCode).toEqual(200);
       expect(res.body._id).toEqual(userId);
       expect(res.body.email).toEqual("cesar-vidal@live.u-tad.com");
-      expect(res.body).not.toHaveProperty("Contraseña1234.");
+      expect(res.body).not.toHaveProperty("Contrase@1234.");
     });
 
     it("No se debe de obtener un usuario con su token.", async () => {

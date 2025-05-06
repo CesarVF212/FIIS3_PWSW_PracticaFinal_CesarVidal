@@ -3,18 +3,15 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 const app = require("../app").app; // Asegúrate de que exportas correctamente app desde app.js
-const { userModel } = require("../models");
+const { userModel, clientModel } = require("../models"); // Añadido clientModel
 const { encrypt } = require("../utils/handlePassword");
 
 // Test data con contraseña que cumpla con la validación
 const testUser = {
   name: "Test User",
   email: "test@example.com",
-  password: "Password.123", // Contraseña que cumple con la validación
+  password: "Password@123", // Actualizada la contraseña
 };
-
-let token;
-let userId;
 
 // Esta función permite manejar mejor las promesas en los tests
 const asyncRequestHandler = async (request) => {
@@ -33,11 +30,14 @@ describe("Rutas del cliente", () => {
 
   // Creamos un usuario de prueba.
   beforeAll(async () => {
+    // Limpiamos la base de datos para evitar duplicados
+    await userModel.deleteMany({ email: "lucia-sierra-test@gmail.com" });
+
     // Hacemos que esté verificado.
-    const password = await encrypt("Contraseña1234.");
+    const password = await encrypt("Contrase@1234.");
     const user = await userModel.create({
       name: "Lucia Sierra",
-      email: "lucia-sierra@gmail.com",
+      email: "lucia-sierra-test@gmail.com", // Cambiado para evitar conflictos
       password,
       verified: true,
     });
@@ -46,8 +46,8 @@ describe("Rutas del cliente", () => {
 
     // Iniciamos sesión para obtener el token.
     const res = await request(app).post("/api/user/login").send({
-      email: "lucia-sierra@gmail.com",
-      password: "Contraseña1234.",
+      email: "lucia-sierra-test@gmail.com",
+      password: "Contrase@1234.",
     });
 
     token = res.body.token;

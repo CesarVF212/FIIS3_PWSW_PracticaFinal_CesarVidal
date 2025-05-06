@@ -18,7 +18,7 @@ const tokenSign = (user) => {
     );
     return sign;
   } catch (error) {
-    console.error("Error al generar el token:", error);
+    console.error("(utils/handleJWT) Error al generar el token:", error);
     return null;
   }
 };
@@ -28,7 +28,7 @@ const verifyToken = (tokenJwt) => {
   try {
     return jwt.verify(tokenJwt, JWT_SECRET);
   } catch (error) {
-    console.log("Error el verificar el token:", error);
+    console.log("(utils/handleJWT) Error el verificar el token:", error);
     return null;
   }
 };
