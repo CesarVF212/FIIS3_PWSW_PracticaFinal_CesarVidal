@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --watch app.js",
-    "test": "jest --forceExit"
+    "test": "jest --detectOpenHandles --forceExit"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "express-validator": "^7.2.1",
     "googleapis": "^148.0.0",
     "jsonwebtoken": "^9.0.2",
+    "mongodb-memory-server": "^10.1.4",
     "mongoose": "^8.14.1",
     "mongoose-delete": "^1.0.2",
     "morgan-body": "^2.6.9",

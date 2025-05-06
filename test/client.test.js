@@ -1,9 +1,30 @@
 // --- PRUEBAS SOBRE EL CLIENTE --- //
 
 const request = require("supertest");
-const { app, server } = require("../app");
-const { userModel, clientModel } = require("../models");
+const mongoose = require("mongoose");
+const app = require("../app").app; // Asegúrate de que exportas correctamente app desde app.js
+const { userModel } = require("../models");
 const { encrypt } = require("../utils/handlePassword");
+
+// Test data con contraseña que cumpla con la validación
+const testUser = {
+  name: "Test User",
+  email: "test@example.com",
+  password: "Password.123", // Contraseña que cumple con la validación
+};
+
+let token;
+let userId;
+
+// Esta función permite manejar mejor las promesas en los tests
+const asyncRequestHandler = async (request) => {
+  try {
+    return await request;
+  } catch (error) {
+    console.error("Error en la petición:", error);
+    throw error;
+  }
+};
 
 describe("Rutas del cliente", () => {
   let token;

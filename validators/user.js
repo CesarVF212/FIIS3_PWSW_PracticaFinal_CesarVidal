@@ -10,10 +10,8 @@ const validatorRegister = [
     .exists()
     .notEmpty()
     .isLength({ min: 8, max: 32 })
-    // Verifica lo que tiene que contener la contraseña. Se lo he pedido a la IA por que no entiendo que esta cadena.
-    // Me imagino que significa que exactamente pueden tener las contraseñas y símbolos permitidos.
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$/
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[.@$!%*?&])[A-Za-z\d.@$!%*?&]{8,}$/
     )
     .withMessage(
       "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"

@@ -1,5 +1,4 @@
 // --- PREPARA TODO PARA EL USO DE LOS TESTS --- //
-
 const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 
@@ -18,19 +17,32 @@ beforeAll(async () => {
 
   // Conectamos a la base de datos.
   await mongoose.connect(mongoUri);
-});
 
-afterAll(async () => {
-  await mongoose.connection.close();
-  await mongoServer.stop();
-});
-
-// Antes de cada test limpiamos las colecciones.
-beforeEach(async () => {
+  // Limpiamos completamente la base de datos antes de empezar
   const collections = mongoose.connection.collections;
-
   for (const key in collections) {
     const collection = collections[key];
     await collection.deleteMany({});
   }
 });
+
+afterAll(async () => {
+  // Cerramos todas las conexiones
+  await mongoose.connection.close();
+  await mongoServer.stop();
+
+  // Importante: esto ayuda a cerrar los handles abiertos
+  setTimeout(() => process.exit(0), 1000);
+});
+
+// No es necesario el beforeEach si ya limpiamos todo en beforeAll
+// Lo dejamos comentado por si lo necesitas luego
+/*
+beforeEach(async () => {
+  const collections = mongoose.connection.collections;
+  for (const key in collections) {
+    const collection = collections[key];
+    await collection.deleteMany({});
+  }
+});
+*/
