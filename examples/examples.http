@@ -1,0 +1,312 @@
+### Variables
+@baseUrl = http://localhost:3000/api
+@token = 
+
+### Registro de usuario
+POST {{baseUrl}}/user/register
+Content-Type: application/json
+
+{
+  "name": "César Vidal Fernández",
+  "email": "cesar.vidal@live.u-tad.com",
+  "password": "Contraseña1234."
+}
+
+### Validación de email
+PUT {{baseUrl}}/user/validation
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "code": "123456"
+}
+
+### Inicio de sesión
+POST {{baseUrl}}/user/login
+Content-Type: application/json
+
+{
+  "email": "cesar.vidal@live.u-tad.com",
+  "password": "Contraseña1234."
+}
+
+### Perfil del usuario
+GET {{baseUrl}}/user
+Authorization: Bearer {{token}}
+
+### Actualizar información personal
+PUT {{baseUrl}}/user
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "personalInfo": {
+    "firstName": "César",
+    "lastName": "Vidal Fernández",
+    "phone": "600112233",
+    "address": "Calle del Software, 42",
+    "city": "Madrid",
+    "country": "España",
+    "postalCode": "28001"
+  }
+}
+
+### Actualizar información de la empresa
+PATCH {{baseUrl}}/user/company
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "VidalTech",
+  "legalName": "VidalTech S.L.",
+  "taxId": "B12345678",
+  "email": "contacto@vidaltech.com",
+  "phone": "911223344",
+  "address": {
+    "street": "Av. Tecnología, 101",
+    "city": "Madrid",
+    "state": "Madrid",
+    "country": "España",
+    "postalCode": "28050"
+  },
+  "website": "https://vidaltech.com"
+}
+
+### Solicitud de restablecimiento de contraseña
+POST {{baseUrl}}/user/password-reset
+Content-Type: application/json
+
+{
+  "email": "cesar.vidal@live.u-tad.com"
+}
+
+### Cambio de contraseña
+POST {{baseUrl}}/user/change-password
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "currentPassword": "Contraseña1234.",
+  "newPassword": "NuevaContraseña5678."
+}
+
+### Crear cliente
+POST {{baseUrl}}/client
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Empresa Cliente",
+  "email": "cliente@empresa.com",
+  "phone": "911000111",
+  "contact": {
+    "name": "Laura Pérez",
+    "position": "Responsable de Proyectos",
+    "email": "laura.perez@empresa.com",
+    "phone": "600334455"
+  },
+  "address": {
+    "street": "Calle Cliente, 123",
+    "city": "Barcelona",
+    "state": "Cataluña",
+    "country": "España",
+    "postalCode": "08001"
+  },
+  "taxId": "C87654321",
+  "notes": "Cliente clave para 2024"
+}
+
+### Obtener todos los clientes
+GET {{baseUrl}}/client
+Authorization: Bearer {{token}}
+
+### Obtener cliente por ID
+GET {{baseUrl}}/client/{{clientId}}
+Authorization: Bearer {{token}}
+
+### Actualizar cliente
+PUT {{baseUrl}}/client/{{clientId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Cliente Actualizado",
+  "email": "actualizado@empresa.com",
+  "notes": "Notas actualizadas del cliente"
+}
+
+### Eliminación suave de cliente
+DELETE {{baseUrl}}/client/{{clientId}}/soft
+Authorization: Bearer {{token}}
+
+### Clientes archivados
+GET {{baseUrl}}/client/archived
+Authorization: Bearer {{token}}
+
+### Restaurar cliente
+POST {{baseUrl}}/client/{{clientId}}/restore
+Authorization: Bearer {{token}}
+
+### Borrado permanente del cliente
+DELETE {{baseUrl}}/client/{{clientId}}
+Authorization: Bearer {{token}}
+
+### Crear proyecto
+POST {{baseUrl}}/project
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Replanteo Web VidalTech",
+  "description": "Rediseño completo del sitio corporativo",
+  "client": "{{clientId}}",
+  "status": "active",
+  "startDate": "2024-01-10T00:00:00.000Z",
+  "endDate": "2024-03-15T00:00:00.000Z",
+  "budget": {
+    "amount": 20000,
+    "currency": "EUR"
+  },
+  "hourlyRate": {
+    "amount": 90,
+    "currency": "EUR"
+  }
+}
+
+### Obtener todos los proyectos
+GET {{baseUrl}}/project
+Authorization: Bearer {{token}}
+
+### Obtener proyecto por ID
+GET {{baseUrl}}/project/{{projectId}}
+Authorization: Bearer {{token}}
+
+### Actualizar proyecto
+PUT {{baseUrl}}/project/{{projectId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Replanteo Web - Etapa 2",
+  "description": "Segunda fase del rediseño",
+  "status": "on-hold",
+  "endDate": "2024-05-01T00:00:00.000Z"
+}
+
+### Eliminación suave del proyecto
+DELETE {{baseUrl}}/project/{{projectId}}/soft
+Authorization: Bearer {{token}}
+
+### Obtener proyectos archivados
+GET {{baseUrl}}/project/archived
+Authorization: Bearer {{token}}
+
+### Restaurar proyecto
+POST {{baseUrl}}/project/{{projectId}}/restore
+Authorization: Bearer {{token}}
+
+### Crear albarán
+POST {{baseUrl}}/deliverynote
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "project": "{{projectId}}",
+  "client": "{{clientId}}",
+  "date": "2024-02-01T00:00:00.000Z",
+  "notes": "Trabajo entregado según cronograma",
+  "labor": [
+    {
+      "person": {
+        "name": "César Vidal",
+        "role": "Desarrollador Fullstack"
+      },
+      "hours": 8,
+      "rate": {
+        "amount": 90,
+        "currency": "EUR"
+      },
+      "date": "2024-02-01T00:00:00.000Z",
+      "description": "Desarrollo frontend y backend"
+    }
+  ],
+  "materials": [
+    {
+      "name": "Servidor VPS",
+      "quantity": 1,
+      "unit": "mes",
+      "price": {
+        "amount": 100,
+        "currency": "EUR"
+      },
+      "description": "Servidor para hosting de aplicación"
+    }
+  ]
+}
+
+### Obtener todos los albaranes
+GET {{baseUrl}}/deliverynote
+Authorization: Bearer {{token}}
+
+### Obtener albarán por ID
+GET {{baseUrl}}/deliverynote/{{deliveryNoteId}}
+Authorization: Bearer {{token}}
+
+### Actualizar albarán
+PUT {{baseUrl}}/deliverynote/{{deliveryNoteId}}
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "date": "2024-02-05T00:00:00.000Z",
+  "notes": "Ajustes finales incluidos",
+  "labor": [
+    {
+      "person": {
+        "name": "César Vidal",
+        "role": "Desarrollador Fullstack"
+      },
+      "hours": 10,
+      "rate": {
+        "amount": 90,
+        "currency": "EUR"
+      },
+      "date": "2024-02-05T00:00:00.000Z",
+      "description": "Implementación de backend"
+    }
+  ]
+}
+
+### Firmar albarán
+POST {{baseUrl}}/deliverynote/{{deliveryNoteId}}/sign
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+Authorization: Bearer {{token}}
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="signedBy"
+
+César Vidal
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="firma.png"
+Content-Type: image/png
+
+< ./firma.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### Obtener PDF del albarán
+GET {{baseUrl}}/deliverynote/pdf/{{deliveryNoteId}}
+Authorization: Bearer {{token}}
+
+### Eliminar albarán
+DELETE {{baseUrl}}/deliverynote/{{deliveryNoteId}}
+Authorization: Bearer {{token}}
+
+### Invitar usuario a la empresa
+POST {{baseUrl}}/user/invite
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "email": "compañero@vidaltech.com",
+  "role": "user"
+}
